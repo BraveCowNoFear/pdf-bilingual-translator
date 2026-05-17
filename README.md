@@ -4,7 +4,7 @@
 
 `pdf-bilingual-translator` is an agent skill for translating PDFs into polished Simplified Chinese while preserving layout, figures, tables, formulas, headers, footers, and page order. It is written for Codex-style skills, but the workflow is runtime-neutral and can be used by Claude Code, OpenCode/OpenClaw, or any agent environment that can read a `SKILL.md` folder and run local scripts.
 
-The skill's core idea is strict reconstruction: translate the document into native LaTeX pages, reuse original PDF-derived figure assets, rebuild tables and formulas, render every page, and run visual QA before delivery.
+The skill's core idea is strict reconstruction: translate the document into native LaTeX pages, reuse original PDF-derived figure assets, rebuild tables and formulas, render every page, and run four page-by-page visual QA passes before delivery.
 
 ## What Is Included
 
@@ -14,7 +14,7 @@ The skill's core idea is strict reconstruction: translate the document into nati
 - `scripts/compile_segment_latex.py` for stable XeLaTeX segment builds
 - `scripts/render_contact_sheets.py` for page PNG renders and contact sheets
 - `scripts/merge_segment_pdfs.py` for ordered segment merging
-- `references/translation-layout-rules.md` with public layout and QA guidance
+- `references/translation-layout-rules.md` with public layout and strict page-by-page QA guidance
 - `agents/openai.yaml` with Codex UI metadata
 - `AGENTS.md` and `CLAUDE.md` as thin adapters for other agent environments
 
@@ -62,7 +62,7 @@ The skill uses neutral roles so it can adapt to different agents:
 - `worker`: a subagent, delegated thread, task runner, or sequential page-range pass.
 - `QA worker`: an independent page-by-page review and repair pass.
 
-If your runtime supports subagents, use parallel workers. If it does not, process the same shards sequentially and keep the artifact contract unchanged.
+If your runtime supports subagents, use parallel workers and target six translation workers per PDF when practical. If it does not, process equivalent logical shards sequentially and keep the artifact contract unchanged. Every shard must produce flat per-page renders and per-page QA records; contact sheets are only navigation aids, not QA evidence.
 
 ## Quick Script Examples
 

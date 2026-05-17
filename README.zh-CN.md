@@ -4,7 +4,7 @@
 
 `pdf-bilingual-translator` 是一个 agent skill，用于把 PDF 翻译成排版精良的简体中文，同时保留原文版式、图片、表格、公式、页眉页脚和页序。它兼容 Codex 的 skill 目录结构，但工作流本身不绑定 Codex，也可以给 Claude Code、OpenCode/OpenClaw 或任何能读取 `SKILL.md` 并运行本地脚本的 agent 环境使用。
 
-核心思路是严格重建：用 LaTeX 原生重排正文、表格和公式，复用从原 PDF 提取/裁切的图像资产，逐页渲染，再做视觉 QA 后交付。
+核心思路是严格重建：用 LaTeX 原生重排正文、表格和公式，复用从原 PDF 提取/裁切的图像资产，逐页渲染，并完成四轮逐页视觉 QA 后交付。
 
 ## 仓库内容
 
@@ -14,7 +14,7 @@
 - `scripts/compile_segment_latex.py`：稳定编译 XeLaTeX segment
 - `scripts/render_contact_sheets.py`：渲染页面 PNG 和 contact sheet
 - `scripts/merge_segment_pdfs.py`：按页序合并 segment PDF
-- `references/translation-layout-rules.md`：公开版版式与 QA 规则
+- `references/translation-layout-rules.md`：公开版版式与严格逐页 QA 规则
 - `agents/openai.yaml`：Codex UI 元数据
 - `AGENTS.md` 和 `CLAUDE.md`：其他 agent 环境的薄适配入口
 
@@ -62,7 +62,7 @@ python -m pip install -r requirements.txt
 - `worker`：可以是 subagent、独立线程、任务 runner，也可以是顺序执行的一个页码分片。
 - `QA worker`：独立逐页审查和修复 pass。
 
-如果 runtime 支持 subagent，就并行分片；如果不支持，就顺序处理同样的分片，但保持 artifact contract 和 QA gate 不变。
+如果 runtime 支持 subagent，就并行分片，并在可行时为每个 PDF 目标使用 6 个翻译 worker；如果不支持，就顺序处理等价的逻辑分片，但保持 artifact contract 和 QA gate 不变。每个分片都必须产出逐页平铺渲染图和逐页 QA 记录；contact sheet 只能用于导航，不能算作 QA 证据。
 
 ## 快速脚本示例
 

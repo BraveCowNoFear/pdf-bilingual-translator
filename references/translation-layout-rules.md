@@ -2,7 +2,7 @@
 
 Use this reference as the default style anchor for PDF translation tasks that require preserved figures, native LaTeX tables/formulas, and bilingual technical terms.
 
-If the user provides approved bilingual sample pages, inspect those samples first and let them override this generic guide. Public releases of this skill intentionally do not bundle private or copyrighted sample PDFs/PNGs.
+If the user provides approved bilingual sample pages, inspect those samples first and let them override this generic guide. Public releases of this skill intentionally do not bundle private or copyrighted sample PDFs/PNGs. Some local installations may include a private `assets/p5-sample/` reference set; use it only when it exists and is licensed for the current project.
 
 ## Required Layout Pattern
 
@@ -12,7 +12,7 @@ If the user provides approved bilingual sample pages, inspect those samples firs
 - Rebuild translatable tables as LaTeX tables, not screenshots.
 - Rebuild formulas as explicit LaTeX math, not copied PDF glyphs.
 - Translate captions and body text into Chinese while keeping technical/proper terms bilingual.
-- Use page-by-page visual QA after rendering, not only text extraction checks.
+- Use strict page-by-page visual QA after rendering, not contact-sheet-only checks or text extraction checks.
 
 ## Figure Handling
 
@@ -40,3 +40,11 @@ If the user provides approved bilingual sample pages, inspect those samples firs
 - Match the source page's approximate text density, margins, figure placement, and heading hierarchy.
 - Prefer slight wording compression over tiny unreadable Chinese text.
 - If a translated paragraph cannot fit safely, adjust local layout, split lines, or rebalance nearby whitespace; do not cover adjacent content.
+
+## Page-by-Page QA
+
+- Every QA pass must produce one flat PNG per checked PDF page, named by absolute page number such as `page_001.png`.
+- Multi-page contact sheets, stitched images, gallery screenshots, and montages are navigation aids only. They never count as pass evidence.
+- Record one QA result per page with `page`, `status`, `defects`, `fixes_applied`, and `rerendered`.
+- If any page is patched, rerender that page and update its QA result.
+- Treat `critical`, `major`, and `minor` defects as delivery blockers until fixed.
