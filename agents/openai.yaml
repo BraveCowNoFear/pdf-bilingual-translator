@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDF Bilingual Translator"
+  short_description: "Agentic LaTeX PDF translation"
+  default_prompt: "Translate the attached PDFs into polished Simplified Chinese. Rebuild body text, captions, tables, and formulas from scratch in LaTeX; keep headers/footers; use original PDF-derived figure assets with bilingual label masks/overlays; shard across available workers or process sequential shards if delegation is unavailable. Each shard must return complete LaTeX, assets, segment PDF, and pass 1/pass 2 page renders; then run independent pass 3/pass 4 QA that directly fixes LaTeX/assets and rerenders. Do not use third-party translation, whole-page PDF backgrounds, screenshot tables, or JSON-only translation deliverables."
