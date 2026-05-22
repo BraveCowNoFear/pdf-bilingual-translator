@@ -90,6 +90,11 @@ def main() -> None:
         help="Add this to rendered page labels; use start_page - 1 for segment PDFs.",
     )
     ap.add_argument("--flat-pages", action="store_true", help="Write page_###.png directly under --out-dir.")
+    ap.add_argument(
+        "--contact-sheet",
+        action="store_true",
+        help="Also generate contact sheets. Flat-page QA renders skip contact sheets unless this is set.",
+    )
     ap.add_argument("--no-contact", action="store_true", help="Skip contact sheet generation.")
     ap.add_argument("--write-manifest-json", action="store_true", help="Write render_manifest.json.")
     args = ap.parse_args()
@@ -103,7 +108,8 @@ def main() -> None:
         args.page_to,
         args.page_number_offset,
     )
-    sheets = [] if args.no_contact else make_contact(pages, args.out_dir / "contact", args.cols, args.thumb_width)
+    make_sheets = not args.no_contact and (not args.flat_pages or args.contact_sheet)
+    sheets = make_contact(pages, args.out_dir / "contact", args.cols, args.thumb_width) if make_sheets else []
 
     if args.write_manifest_json:
         manifest = {

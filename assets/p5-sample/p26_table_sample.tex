@@ -1,0 +1,98 @@
+\documentclass[10pt]{article}
+\usepackage[
+  paperwidth=595.22pt,
+  paperheight=842pt,
+  margin=0pt
+]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage{xcolor}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\pagestyle{empty}
+
+\setmainfont{Arial}
+\setsansfont{Arial}
+\setCJKmainfont{SimSun}
+\setCJKsansfont{SimSun}
+\xeCJKsetup{CJKglue={\hskip 0pt}}
+
+\definecolor{textblack}{RGB}{20,20,20}
+
+\newcommand{\textboxat}[5]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[
+      anchor=north west,
+      inner sep=0pt,
+      text width=#3,
+      align=#4,
+      text=textblack
+    ] at ([xshift=#1,yshift=-#2]current page.north west) {#5};
+  \end{tikzpicture}%
+}
+\newcommand{\term}[2]{#1 (#2)}
+\newcommand{\hcell}[2]{\begin{tabular}[t]{@{}l@{}}\textbf{#1}\\[-1pt]{\fontsize{6.4}{7.0}\selectfont\textbf{(#2)}}\end{tabular}}
+\newcommand{\hcellthree}[3]{\begin{tabular}[t]{@{}l@{}}\textbf{#1}\\[-1pt]{\fontsize{6.4}{7.0}\selectfont\textbf{(#2)}}\\[-1pt]{\fontsize{6.4}{7.0}\selectfont\textbf{(#3)}}\end{tabular}}
+\newcommand{\rcell}[2]{\begin{tabular}[t]{@{}l@{}}#1\\[-1pt]{\fontsize{6.4}{7.0}\selectfont (#2)}\end{tabular}}
+
+\begin{document}
+\mbox{}
+
+\textboxat{72pt}{38.4pt}{55pt}{left}{\fontsize{11.2}{13}\selectfont 1P5}
+\textboxat{158pt}{39.0pt}{280pt}{center}{\fontsize{10.4}{12}\selectfont P5 Thermodynamics Lab: Background \& Prep}
+\textboxat{408pt}{38.4pt}{134pt}{right}{\fontsize{11.2}{13}\selectfont Page 26 of 52}
+\textboxat{72pt}{792.4pt}{280pt}{left}{\fontsize{10.2}{12}\selectfont P5 Thermo PrepWork 2526.docx}
+\textboxat{402pt}{792.4pt}{140pt}{right}{\fontsize{9.4}{11.2}\selectfont Jan-2026}
+
+\textboxat{72pt}{69pt}{470pt}{center}{%
+{\fontsize{10.3}{12}\selectfont \mbox{Table 1 - \term{温度传感器对比}{Comparison of Temperature Transducers}}}%
+}
+
+\textboxat{72pt}{92pt}{470pt}{left}{%
+{\fontsize{7.2}{9.0}\selectfont
+\setlength{\tabcolsep}{1.5pt}
+\renewcommand{\arraystretch}{1.20}
+\begin{tabular}{@{}
+>{\raggedright\arraybackslash}p{54pt}
+>{\raggedright\arraybackslash}p{48pt}
+>{\raggedright\arraybackslash}p{45pt}
+>{\raggedright\arraybackslash}p{56pt}
+>{\raggedright\arraybackslash}p{74pt}
+>{\raggedright\arraybackslash}p{88pt}
+>{\raggedright\arraybackslash}p{86pt}
+@{}}
+\toprule
+\hcell{类型}{Type} &
+\hcell{成本}{Cost} &
+\hcell{输出}{Output} &
+\hcell{线性度}{Linearity} &
+\hcell{温度范围}{Temp. Range, $^\circ$C} &
+\hcellthree{单个传感器量程}{Individual Sensor}{Range, K} &
+\hcellthree{易实现精度}{Readily Achievable}{Accuracy, K} \\
+\midrule
+\rcell{热电偶}{TC} & \rcell{中等}{medium} & \rcell{低}{low} & \rcell{合理}{reasonable} & $-250$ to $2500$ & $\approx1000$ & $\pm1.0$ \\
+\rcell{铂电阻}{PRT} & \rcell{高}{high} & \rcell{低}{low} & \rcell{好}{good} & $-200$ to $850$ & $\approx500$ & $\pm0.1$ \\
+\rcell{热敏电阻}{Thermistor} & \rcell{低}{low} & \rcell{高}{high} & \rcell{差}{poor} & $-50$ to $250$ & $\approx100$ & $\pm1.0$ \\
+\bottomrule
+\end{tabular}
+}%
+}
+
+\textboxat{72pt}{245pt}{470pt}{left}{%
+{\fontsize{10.2}{15.0}\selectfont
+{\fontsize{12.3}{15}\selectfont 3.3\quad \term{旋转速度测量装置简介}{Introduction to Rotational Speed Measurement Devices}}
+
+\vspace{5pt}
+\term{旋转速度}{rotational speed} 的测量虽然不如压力 (pressure) 或温度 (temperature) 测量那样常见，但仍然应用广泛。它适用于内燃机 (internal combustion engines)、涡轮机械 (turbomachinery，包括风力涡轮机和喷气发动机) 以及飞机姿态与运动 (aircraft attitude and motion) 等旋转机械。
+
+\vspace{13pt}
+对于只有一个旋转自由度 (1-degree-of-rotational-freedom) 的机器，速度通常用每分钟转数 (revolutions per minute, rpm) 表示，而不是用 Hz。相比之下，飞机的旋转运动具有三个自由度 (3-degrees-of-freedom, 3-DoF)，通常通过陀螺仪 (gyroscope) 以弧度每秒 (rad/s) 测量。为简洁起见，这里只讨论一自由度 (1-DoF) 旋转测量；多自由度陀螺仪测量留待后续课程学习。
+
+\vspace{13pt}
+如今，大多数速度测量系统使用\term{脉冲计数方法}{pulse counting methods}。在这类方法中，感应式或光学探头 (inductive or optical probe) 检测旋转特征经过探头的时刻，并产生相应的时间脉冲列 (train of pulses)。被检测特征取决于具体设计和应用，可以是齿轮齿、六角螺母平面，或轴上的蚀刻/阳极氧化图案。
+}%
+}
+
+\end{document}

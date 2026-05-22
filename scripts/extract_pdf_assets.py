@@ -23,7 +23,7 @@ def fmt_rect(rect) -> str:
 
 
 def extract_embedded_images(doc: fitz.Document, out_dir: Path):
-    image_dir = out_dir / "embedded"
+    image_dir = out_dir / "figures" / "embedded"
     image_dir.mkdir(parents=True, exist_ok=True)
     rows = []
     saved_paths: dict[int, Path] = {}

@@ -1,0 +1,89 @@
+\documentclass[10pt]{article}
+\usepackage[
+  paperwidth=595.22pt,
+  paperheight=842pt,
+  margin=0pt
+]{geometry}
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\pagestyle{empty}
+
+\setmainfont{Arial}
+\setsansfont{Arial}
+\setCJKmainfont{SimSun}
+\setCJKsansfont{SimSun}
+
+\definecolor{textblack}{RGB}{20,20,20}
+
+\newcommand{\textboxat}[5]{%
+  \begin{tikzpicture}[remember picture,overlay]
+    \node[
+      anchor=north west,
+      inner sep=0pt,
+      text width=#3,
+      align=#4,
+      text=textblack
+    ] at ([xshift=#1,yshift=-#2]current page.north west) {#5};
+  \end{tikzpicture}%
+}
+
+\newcommand{\term}[2]{#1 (#2)}
+
+\begin{document}
+\mbox{}
+
+\textboxat{72pt}{38.4pt}{55pt}{left}{\fontsize{11.2}{13}\selectfont 1P5}
+\textboxat{158pt}{39.0pt}{280pt}{center}{\fontsize{10.4}{12}\selectfont P5 Thermodynamics Lab: Background \& Prep}
+\textboxat{408pt}{38.4pt}{134pt}{right}{\fontsize{11.2}{13}\selectfont Page 37 of 52}
+\textboxat{72pt}{792.4pt}{280pt}{left}{\fontsize{10.2}{12}\selectfont P5 Thermo PrepWork 2526.docx}
+\textboxat{402pt}{792.4pt}{140pt}{right}{\fontsize{9.4}{11.2}\selectfont Jan-2026}
+
+\textboxat{72pt}{75pt}{470pt}{left}{%
+{\fontsize{9.7}{14.3}\selectfont
+活塞 (piston) 与气体 (gas) 之间的功由 $\oint p\,dV$ 给出，其中 $\oint$ 表示对一个发动机循环 (engine cycle) 积分；对这些四冲程发动机 (4 stroke engines) 而言，一个循环对应 $720^\circ$ 曲轴转角 (crank angle)。
+
+\vspace{12pt}
+{\fontsize{12.3}{15}\selectfont 4.3.2\quad \term{机械效率}{Mechanical Efficiency}}
+
+\vspace{4pt}
+\term{机械效率}{mechanical efficiency} 与所有效率一样，是能量输入 (energy input) 与能量输出 (energy output) 的比值。由于发动机以一定的转速 (rotational speed) 运行，用\term{功率}{power}，也就是单位时间能量 (energy per time)，来定义会比直接用能量更方便。具体而言，机械效率定义为发动机输出的\term{制动功率}{brake power} $(\dot W_b)$ 与\term{指示功率}{indicated power} $(\dot W_i)$ 之比：
+\begin{equation}
+  \eta_{\mathrm{mech}}=\frac{\dot W_b}{\dot W_i}
+  \tag{4.7}
+\end{equation}
+
+这些量定义如下。首先，气体在单个循环内对活塞所做的功称为\term{指示功}{indicated work}，可写为：
+\[
+  W_i=\oint p\,dV
+\]
+
+这是每循环的功；将其乘以每秒循环数 $(N')$，即可得到\term{指示功率}{indicated power} $\dot W_i$：
+\begin{equation}
+  \dot W_i=W_iN'
+  \tag{4.8}
+\end{equation}
+
+对于一台以 $N$ rpm 运转、具有 $n$ 个\term{气缸}{cylinders} 的四冲程发动机 (four-stroke engine)，每个循环需要 2 转，因此可定义 $N'$ 为：
+\begin{equation}
+  N'=\frac{N\,n}{120}
+  \tag{4.9}
+\end{equation}
+
+\term{制动功率}{brake power} 等于飞轮 (flywheel) 或测功机 (dynamometer) 处的发动机\term{扭矩}{torque} 与角速度 (angular velocity, rad/s) 的乘积：
+\begin{equation}
+  \dot W_b=T\omega
+  \tag{4.10}
+\end{equation}
+
+指示功与制动功之间的差值，就是作为\term{摩擦}{friction} 耗散掉的功率：
+\begin{equation}
+  \dot W_f=\dot W_i-\dot W_b
+  \tag{4.11}
+\end{equation}
+}%
+}
+
+\end{document}
